@@ -71,9 +71,3 @@ This repo is intended to remain a focused, polished personal project. The first 
 4. add a Next.js frontend with dashboard pages
 5. add vocabulary tracking and Anki generation support
 6. add historical trend charts and timeline planning
-
-## Notes
-
-- The project is personal but should remain structured enough to look professional on GitHub.
-- The current priority is working functionality rather than adding too many features.
-- Future improvements may include PostgreSQL migration, multi-user support, and hosted deployment.
