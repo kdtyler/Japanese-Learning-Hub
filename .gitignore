@@ -1,0 +1,36 @@
+# Java
+target/
+*.class
+*.jar
+*.war
+
+# Maven
+.mvn/
+!mvnw
+
+# Spring Boot
+spring.log
+application-local.properties
+
+# Node
+node_modules/
+
+# Next.js
+.next/
+.next-app/
+out/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+
+# IDE
+.vscode/
+
+# Personal / local files
+BasicProjectDescription.txt
+testFile.txt
