@@ -15,11 +15,11 @@ export default function Apps() {
     },
     {
       name: 'WaniKani',
-      description: 'Coming soon...',
+      description: 'Track your kanji and vocabulary SRS progress',
       icon: '🦀',
-      href: '#',
-      status: 'Coming Soon',
-      disabled: true,
+      href: `/apps/wanikani/${userId}`,
+      status: 'Active',
+      disabled: false,
     },
   ];
 

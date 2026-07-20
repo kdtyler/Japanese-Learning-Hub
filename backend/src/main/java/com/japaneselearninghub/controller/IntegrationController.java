@@ -5,6 +5,8 @@ import com.japaneselearninghub.repository.AppIntegrationRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/integrations")
 public class IntegrationController {
@@ -61,5 +63,46 @@ public class IntegrationController {
 
         public String getDuomeUsername() { return duomeUsername; }
         public void setDuomeUsername(String duomeUsername) { this.duomeUsername = duomeUsername; }
+    }
+
+    /**
+     * Save or update a WaniKani API key for a user
+     */
+    @PostMapping("/wanikani")
+    public ResponseEntity<?> saveWaniKaniKey(
+            @RequestParam Long userId,
+            @RequestBody WaniKaniKeyRequest request) {
+        if (request.getApiKey() == null || request.getApiKey().isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "API key is required"));
+        }
+        AppIntegration integration = appIntegrationRepository.findByUserIdAndAppName(userId, "wanikani");
+        if (integration == null) {
+            integration = new AppIntegration(userId, "wanikani", request.getApiKey());
+        } else {
+            integration.setAuthToken(request.getApiKey());
+        }
+        return ResponseEntity.ok(appIntegrationRepository.save(integration));
+    }
+
+    /**
+     * Get WaniKani integration status (does not expose the API key)
+     */
+    @GetMapping("/wanikani/{userId}")
+    public ResponseEntity<Map<String, Object>> getWaniKaniIntegration(@PathVariable Long userId) {
+        AppIntegration integration = appIntegrationRepository.findByUserIdAndAppName(userId, "wanikani");
+        if (integration == null) {
+            return ResponseEntity.notFound().build();
+        }
+        boolean configured = integration.getAuthToken() != null && !integration.getAuthToken().isBlank();
+        return ResponseEntity.ok(Map.of(
+            "configured", configured,
+            "lastSyncedAt", integration.getLastSyncedAt() != null ? integration.getLastSyncedAt() : 0
+        ));
+    }
+
+    public static class WaniKaniKeyRequest {
+        private String apiKey;
+        public String getApiKey() { return apiKey; }
+        public void setApiKey(String apiKey) { this.apiKey = apiKey; }
     }
 }

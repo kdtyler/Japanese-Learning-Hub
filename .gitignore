@@ -34,3 +34,7 @@ out/
 # Personal / local files
 BasicProjectDescription.txt
 testFile.txt
+
+# Playwright browser session (contains cookies, login data — never commit)
+.browser-session/
+**/browser-session/

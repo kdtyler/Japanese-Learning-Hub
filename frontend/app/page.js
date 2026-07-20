@@ -73,7 +73,9 @@ export default function Home() {
               <h2 className="card-title">📊 Vocabulary Dashboard</h2>
               <p>Visualize overlaps and track words across all your apps.</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary btn-disabled">Coming Soon</button>
+                <Link href="/vocabulary" className="btn btn-primary">
+                  View Dashboard
+                </Link>
               </div>
             </div>
           </div>
